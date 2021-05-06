@@ -1,8 +1,13 @@
 const fs = require('fs');
+const path = require('path');
 
 const PESSOAS_JSON = fs.readFileSync('pessoas.json');
 const PESSOAS_FORMATADAS = JSON.parse(PESSOAS_JSON);
-const DIR_ASSINATURA = './assinaturas';
+const ASSINATURA = './assinaturas';
+const CAMINHO_ASSINATURA = path.join(__dirname, ASSINATURA);
+const DATA_AGORA = new Date();
+const DATA_FORMATADAS = `${DATA_AGORA.getDate()}-${DATA_AGORA.getMonth()}-${DATA_AGORA.getFullYear()}-${DATA_AGORA.getHours()}-${DATA_AGORA.getMinutes()}`;
+const NOVO_CAMINHO = `${CAMINHO_ASSINATURA}_${DATA_FORMATADAS}`;
 
 interface Informacoes {
   nome: string;
@@ -98,7 +103,7 @@ const htmlAssinatura = (pessoa : Informacoes) => {
 
 const percorreListaPessoas = (item: myInterface) =>  
     fs.writeFile(
-      `./assinaturas/${item.nome}.html`, 
+      `${NOVO_CAMINHO}/${item.nome}.html`, 
       htmlAssinatura(item), 
       (err: string) => {
       if (err) {
@@ -111,23 +116,9 @@ const generateSubscriptions = () => {
   PESSOAS_FORMATADAS.map(percorreListaPessoas);
 } 
 
-if (fs.existsSync(DIR_ASSINATURA)) {
-  // Deleted
-  fs.rmdir('./assinaturas', { recursive: true }, (err: string) => {
-    if (err) {
-        throw err;
-    }
-    console.info('/assinaturas is deleted!');
+fs.mkdirSync(NOVO_CAMINHO);
 
-    // Created
-    fs.mkdirSync('./assinaturas');
-    
-    console.info('/assinaturas is created!');
-    generateSubscriptions();
-  });
-} else {
-  fs.mkdirSync('./assinaturas');
-    
-  console.info('/assinaturas is created!');
-  generateSubscriptions();
-}
+console.info('/assinaturas is created!');
+
+// Creating
+generateSubscriptions();
