@@ -1,0 +1,17 @@
+{
+  "name": "create_subscriptions",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "generate": "tsnd create_subscriptions.ts"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "ts-node-dev": "^1.1.6",
+    "@types/node": "^14.14.41"
+  }
+}
