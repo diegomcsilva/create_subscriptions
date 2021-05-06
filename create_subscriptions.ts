@@ -52,13 +52,16 @@ const htmlAssinatura = (pessoa : Informacoes) => {
           ${cargo}
         </span>
         <br />
-        <a href="https://api.whatsapp.com/send?phone=55
+        ${cel ? 
+        `<a href="https://api.whatsapp.com/send?phone=55
           ${cel && cel.replace('(', '').replace(')', '')}
         " target="_blank" 
         style="text-decoration: none; font-size: 13px;letter-spacing: 1px;color: #5a5a58;font-weight: 500;">
           Cel.: ${cel}
           <img src="http://www.transportesirmaos.com.br/images/copia1_whats.png" alt="Whatsapp" width="28">
-        </a>
+        </a>`
+        : '<p></p>'
+        }
         <br />
         <a href="tel:(21) 3513 1488" target="_blank" style="text-decoration: none;font-size: 13px;letter-spacing: 1px;color: #5a5a58;font-weight: 500;">
           Tel.: ${tel}
